@@ -2,10 +2,36 @@ from PIL import Image, ImageDraw
 import os
 
 # 定义图像大小 输入和输出路径
-w = 320    # 宽
-h = 240    # 高
+#w = 320    # 宽
+#h = 240    # 高
 input_path = "E:\\python\\txt"      # 源文件路径
 output_path = "E:\\python\\image"   # 输出文件路径
+
+#自动根据输入文件大小设置图像大小
+def find_best_size(input_length: int) -> tuple:
+    sizes = [
+        (96, 96),
+        (160, 120),
+        (176, 144),
+        (240, 176),
+        (240, 240),
+        (320, 240),
+        (400, 296),
+        (480, 320),
+        (640, 480)
+    ]
+
+    min_diff = float('inf')
+    best_size = (0, 0)
+
+    for size in sizes:
+        w, h = size
+        diff = abs(input_length - w * h)
+        if diff < min_diff:
+            min_diff = diff
+            best_size = size
+
+    return best_size
 
 # 此函数将RGB565格式的颜色值转换为RGB888格式的颜色值
 def convert_rgb565_to_rgb888(hex_value: int) -> tuple:
@@ -37,6 +63,7 @@ def main():
 
         #计算输入文件的长度，并输出文件信息
         input_length = len(file_content) // 4
+        w, h = find_best_size(input_length)
         print(f"定义图像大小: {w * h}, 输入文件大小: {input_length}")
         print(f"正在合成来自 {input_file} 的图像数据，合成为 {w} * {h} 的图像")
 
