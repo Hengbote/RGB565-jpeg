@@ -3,6 +3,7 @@ import os
 
 input_path = "E:\\python\\txt"      # 源文件路径
 output_path = "E:\\python\\image"   # 输出文件路径
+save_format = "png"                 # 输出文件格式
 
 #自动根据输入文件大小设置图像大小
 def find_best_size(input_length: int) -> tuple:
@@ -53,12 +54,21 @@ def main():
 
         #对于每个文件，生成输入和输出文件的完整路径
         input_file = os.path.join(input_path, file_name)
-        output_file = os.path.join(output_path, file_name[:-4] + ".jpeg")
+        output_file = os.path.join(output_path, file_name[:-4] + "." + save_format)
 
-        # 如果输出文件已存在，则跳过处理
-        if os.path.exists(output_file):  
-            print(f"跳过已存在的输出文件: {output_file}")
+        # 获取输出目录中的所有文件名（不包括扩展名）
+        output_files_without_ext = {os.path.splitext(f)[0] for f in os.listdir(output_path)}
+
+        # 如果输出文件已存在（不考虑扩展名），则跳过处理
+        input_file_name_without_ext = os.path.splitext(file_name)[0]
+        if input_file_name_without_ext in output_files_without_ext:
+            print(f"已跳过存在的图像文件的输入文件: {input_file}")
             continue
+
+        ## 如果输出文件已存在，则跳过处理
+        #if os.path.exists(output_file):  
+        #    print(f"跳过已存在的输出文件: {output_file}")
+        #    continue
 
         #读取输入文件的内容，并去除空格
         with open(input_file, encoding="utf-8") as f:
@@ -82,7 +92,7 @@ def main():
             draw.point((x, y), fill=rgb_values[i] if i < input_length else (255, 255, 255))
 
         #保存生成的JPEG图像并显示
-        image.save(output_file, 'jpeg')
+        image.save(output_file, save_format)
         image.show()
 
 #程序的入口点
