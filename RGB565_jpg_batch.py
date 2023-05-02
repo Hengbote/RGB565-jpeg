@@ -9,7 +9,8 @@ save_format = "png"                 # 输出文件格式
 def find_best_size(input_length: int) -> tuple:
     # 预定义的图像大小列表
     sizes = [
-        (96, 96),
+        (12,  20),
+        (96,  96),
         (160, 120),
         (176, 144),
         (240, 176),
@@ -62,7 +63,7 @@ def main():
         # 如果输出文件已存在（不考虑扩展名），则跳过处理
         input_file_name_without_ext = os.path.splitext(file_name)[0]
         if input_file_name_without_ext in output_files_without_ext:
-            print(f"已跳过存在的图像文件的输入文件: {input_file}")
+            #print(f"已跳过存在的图像文件的输入文件: {input_file}")
             continue
 
         ## 如果输出文件已存在，则跳过处理
@@ -77,6 +78,8 @@ def main():
         #计算输入文件的长度，并输出文件信息
         input_length = len(file_content) // 4
         w, h = find_best_size(input_length)
+        #w = 120
+        #h = 120
         print(f"定义图像大小: {w * h}, 输入文件大小: {input_length}")
         print(f"正在合成来自 {input_file} 的图像数据，合成为 {w} * {h} 的图像")
 
