@@ -1,9 +1,9 @@
 import os
 from PIL import Image, ImageDraw
 
-input_path = "E:\\python\\txt"      # 输入文件路径
-output_path = "E:\\python\\image"   # 输出文件路径
-save_format = "png"                 # 输出文件格式
+input_path = "E:\\python\\Image\\txt"       # 输入文件路径
+output_path = "E:\\python\\Image\\image"    # 输出文件路径
+save_format = "png"                         # 输出文件格式
 
 width_per_image = 11
 height_per_image = 18
