@@ -1,15 +1,20 @@
 from PIL import Image, ImageDraw
 import os
 
-input_path = "E:\\python\\txt"      # 源文件路径
-output_path = "E:\\python\\image"   # 输出文件路径
-save_format = "png"                 # 输出文件格式
+input_path = "E:\\python\\Image\\txt"       # 源文件路径
+output_path = "E:\\python\\Image\\image"    # 输出文件路径
+save_format = "png"                         # 输出文件格式
 
 #自动根据输入文件大小设置图像大小
 def find_best_size(input_length: int) -> tuple:
     # 预定义的图像大小列表
     sizes = [
+        (9,   18),
         (11,  18),
+        (12,  20),
+        (48,  48),
+        (20,  20),
+        (48,  48),
         (96,  96),
         (160, 120),
         (176, 144),
